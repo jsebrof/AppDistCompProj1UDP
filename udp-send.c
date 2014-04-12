@@ -25,9 +25,8 @@ int main(void)
 	int fd, i, slen=sizeof(remaddr);
 	char buf[BUFLEN];	/* message buffer */
 	int recvlen;		/* # bytes in acknowledgement message */
-	char *server = "127.0.0.1";	/* change this to use a different server */
-
-	/* create a socket */
+	char *server = "172.28.244.123";	/* change this to use a different server */
+/* create a socket */
 
 	if ((fd=socket(AF_INET, SOCK_DGRAM, 0))==-1)
 		printf("socket created\n");
