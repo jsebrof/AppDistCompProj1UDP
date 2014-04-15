@@ -14,9 +14,9 @@
 #include <string.h>
 #include <netdb.h>
 #include <sys/socket.h>
-#include "port.h"
 
 #define BUFLEN 2048
+#define PORT 12345
 #define MSGS 5	/* number of messages to send */
 
 int main(void)
@@ -49,7 +49,7 @@ int main(void)
 
 	memset((char *) &remaddr, 0, sizeof(remaddr));
 	remaddr.sin_family = AF_INET;
-	remaddr.sin_port = htons(SERVICE_PORT);
+	remaddr.sin_port = htons(PORT);
 	if (inet_aton(server, &remaddr.sin_addr)==0) {
 		fprintf(stderr, "inet_aton() failed\n");
 		exit(1);
@@ -58,7 +58,7 @@ int main(void)
 	/* now let's send the messages */
 
 	for (i=0; i < MSGS; i++) {
-		printf("Sending packet %d to %s port %d\n", i, server, SERVICE_PORT);
+		printf("Sending packet %d to %s port %d\n", i, server, PORT);
 		sprintf(buf, "This is packet %d", i);
 		if (sendto(fd, buf, strlen(buf), 0, (struct sockaddr *)&remaddr, slen)==-1) {
 			perror("sendto");

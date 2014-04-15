@@ -13,9 +13,9 @@
 #include <netdb.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
-#include "port.h"
 
 #define BUFSIZE 2048
+#define PORT 12345
 
 int
 main(int argc, char **argv)
@@ -41,7 +41,7 @@ main(int argc, char **argv)
 	memset((char *)&myaddr, 0, sizeof(myaddr));
 	myaddr.sin_family = AF_INET;
 	myaddr.sin_addr.s_addr = htonl(INADDR_ANY);
-	myaddr.sin_port = htons(SERVICE_PORT);
+	myaddr.sin_port = htons(PORT);
 
 	if (bind(fd, (struct sockaddr *)&myaddr, sizeof(myaddr)) < 0) {
 		perror("bind failed");
@@ -50,7 +50,7 @@ main(int argc, char **argv)
 
 	/* now loop, receiving data and printing what we received */
 	for (;;) {
-		printf("waiting on port %d\n", SERVICE_PORT);
+		printf("waiting on port %d\n", PORT);
 		recvlen = recvfrom(fd, buf, BUFSIZE, 0, (struct sockaddr *)&remaddr, &addrlen);
 		if (recvlen > 0) {
 			buf[recvlen] = 0;
