@@ -11,9 +11,10 @@ udp-send: udp-send.o
 udp-recv: udp-recv.o 
 	$(CC) -o udp-recv udp-recv.o $(LIBS)
 
-udp-send.o: udp-send.c port.h
+udp-send.o: udp-send.c
 
-udp-recv.o: udp-recv.c port.h
+udp-recv.o: udp-recv.c
 
 clean:
-	rm -f udp-send udp-recv udp-send.o udp-recv.o 
+	-rm -f *.o
+	-rm -f $(TARGET)
