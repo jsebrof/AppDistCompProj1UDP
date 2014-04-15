@@ -15,6 +15,9 @@ udp-send.o: udp-send.c
 
 udp-recv.o: udp-recv.c
 
+.PHONY: clean
+
 clean:
 	-rm -f *.o
-	-rm -f $(TARGET)
+	-rm -f udp-recv
+	-rm -f udp-send
