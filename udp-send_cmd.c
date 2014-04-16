@@ -14,19 +14,47 @@
 #include <string.h>
 #include <netdb.h>
 #include <sys/socket.h>
+/*
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <errno.h>
+ #include <netdb.h>
+ #include <sys/types.h>
+ #include <sys/socket.h>
+ #include <netinet/in.h>
+ #include <arpa/inet.h>*/
 
 #define BUFLEN 2048
 #define PORT 12345
 #define MSGS 5	/* number of messages to send */
 
-int main(void)
+int main(int argc, char *argv[ ])
 {
 	struct sockaddr_in myaddr, remaddr;
 	int fd, i, slen=sizeof(remaddr);
 	char buf[BUFLEN];	/* message buffer */
 	int recvlen;		/* # bytes in acknowledgement message */
-	char *server = "172.28.244.123";	/* change this to use a different server */
-/* create a socket */
+    
+    struct hostent *h;
+    /* error check the command line */
+    if(argc != 2) {
+        fprintf(stderr, "Usage: %s hostname\n", argv[0]);
+        exit(1);
+    }
+    /* get the host info */
+    if((h=gethostbyname(argv[1])) == NULL) {
+        herror("gethostbyname(): ");
+        exit(1);
+    }
+    else
+            
+    printf("Hostname: %s\n", h->h_name);
+    printf("IP Address: %s\n", inet_ntoa(*((struct in_addr *)h->h_addr)));
+        
+    
+	char *server = inet_ntoa(*((struct in_addr *)h->h_addr));	/* change this to use a different server */
+
+    /* create a socket */
 
 	if ((fd=socket(AF_INET, SOCK_DGRAM, 0))==-1)
 		printf("socket created\n");
