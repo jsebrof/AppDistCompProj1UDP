@@ -8,20 +8,21 @@ class UDPServer
 		long timestart = System.currentTimeMillis();
 		HashMap<String, String> store = new HashMap<String, String>(); // Map for storing key/value pairs
 		int port = Integer.parseInt(args[0]); // Port # to listen for messages at
-		System.out.println("\nServer Start at " + (System.currentTimeMillis()-timestart) + " milliseconds");
+		System.out.println("Server Start at " + (System.currentTimeMillis()-timestart) + " milliseconds");
 		DatagramSocket serverSocket = new DatagramSocket(port); // just kill the server to release the socket
-
-		// Setup bytes for sending and receiving packets
-		byte[] receiveOperationData = new byte[1024];
-		byte[] receiveKeyData = new byte[1024];
-		byte[] receiveValueData = new byte[1024];
-		byte[] sendData = new byte[1024];
 
 		while(true)
 		{
 			while(true)
 			{
-				System.out.println("Waiting to receive message at " + (System.currentTimeMillis()-timestart) + " milliseconds");
+				System.out.println("\nWaiting to receive message at " + (System.currentTimeMillis()-timestart) + " milliseconds");
+				
+				// Setup bytes for sending and receiving packets
+				byte[] receiveOperationData = new byte[1024];
+				byte[] receiveKeyData = new byte[1024];
+				byte[] receiveValueData = new byte[1024];
+				byte[] sendData = new byte[1024];
+				
 				// Setup packets for receiving
 				DatagramPacket receiveOperationPacket = new DatagramPacket(receiveOperationData, receiveOperationData.length);
 				DatagramPacket receiveKeyPacket = new DatagramPacket(receiveKeyData, receiveKeyData.length);
@@ -33,7 +34,7 @@ class UDPServer
 				// get operation from operation packet
 				String operation = new String(receiveOperationPacket.getData());
 				operation = operation.trim().toLowerCase();
-				serverSocket.setSoTimeout(1000); // Set a 1 second timeout for the Key packet to arrive
+				serverSocket.setSoTimeout(1000); // Set a 1 second timeout for the Key and Value packets to arrive
 				try
 				{
 					serverSocket.receive(receiveKeyPacket); // receive key packet
@@ -96,8 +97,8 @@ class UDPServer
 				case "delete":
 					if (store.containsKey(key))
 					{
-						store.remove(key); // delete key/value from the Map
 						System.out.println("Key \"" + key + "\" Value \"" + store.get(key) + "\" deleted at " + (System.currentTimeMillis()-timestart) + " milliseconds");
+						store.remove(key); // delete key/value from the Map
 					}
 					else
 					{
