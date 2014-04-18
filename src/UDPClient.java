@@ -8,7 +8,7 @@ class UDPClient
 		System.out.println("Client Start");
 		BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
 		DatagramSocket clientSocket = new DatagramSocket();
-		InetAddress IPAddress = InetAddress.getByName("n01"); // n01
+		InetAddress IPAddress = InetAddress.getByName("127.0.0.1"); // n01
 		byte[] sendData = new byte[1024];
 		byte[] receiveData = new byte[1024];
 		System.out.println("Enter something to send to the server");

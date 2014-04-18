@@ -1,4 +1,3 @@
-import java.io.*;
 import java.net.*;
 
 class UDPServer
@@ -6,7 +5,6 @@ class UDPServer
 	public static void main(String args[]) throws Exception
 	{
 		System.out.println("Server Start");
-		System.out.println("Enter any input and press enter to stop server:");
 		DatagramSocket serverSocket = new DatagramSocket(9833); // just kill the server to release the socket
 		byte[] receiveData = new byte[1024];
 		byte[] sendData = new byte[1024];
