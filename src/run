@@ -1,0 +1,2 @@
+javac UDPClient.java
+javac UDPServer.java
