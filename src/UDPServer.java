@@ -7,14 +7,12 @@ class UDPServer
 	{
 		System.out.println("Server Start");
 		System.out.println("Enter any input and press enter to stop server:");
-		DatagramSocket serverSocket = new DatagramSocket(9833);
+		DatagramSocket serverSocket = new DatagramSocket(9833); // just kill the server to release the socket
 		byte[] receiveData = new byte[1024];
 		byte[] sendData = new byte[1024];
-		BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
-		@SuppressWarnings("unused")
-		String userInput;
-		while((userInput = stdIn.readLine()) == null)
+		while(true)
 		{
+			System.out.println("Waiting to receive message...");
 			DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
 			serverSocket.receive(receivePacket);
 			String sentence = new String( receivePacket.getData());
@@ -26,7 +24,5 @@ class UDPServer
 			DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
 			serverSocket.send(sendPacket);
 		}
-		System.out.println("Server Stop");
-		serverSocket.close();
 	}
 }
