@@ -6,6 +6,11 @@ class UDPServer
 	public static void main(String args[]) throws Exception
 	{
 		long timestart = System.currentTimeMillis();
+		if (args.length < 1) // If there isn't at least one command line argument
+		{
+			System.out.println("Insufficient command line arguments at " + (System.currentTimeMillis()-timestart) + " milliseconds");
+			System.exit(0);
+		}
 		HashMap<String, String> store = new HashMap<String, String>(); // Map for storing key/value pairs
 		int port = Integer.parseInt(args[0]); // Port # to listen for messages at
 		System.out.println("Server Start at " + (System.currentTimeMillis()-timestart) + " milliseconds");
